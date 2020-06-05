@@ -1,0 +1,98 @@
+http://localhost:1000/social - POST - HYBRID
+ 
+Queries:
+**All Legacy and greenfeild cases still work
+
+use case#1: User to retrive all the greenfeild(New database) groupPage name top 2 groupPage posts and top 2 groupPage members 
+			with the Legacy user details
+			
+
+query{ 
+allGroupPages{
+     id
+    name
+   about{
+       description
+       privacy
+   }
+    posts(top: 2){
+        id
+        content
+    }
+    members(top: 2){
+        id
+        
+    }
+    } 
+allUsers{
+    id
+    name
+    address{
+        city
+        country
+    }
+    
+    }  
+}
+
+
+Mutations:
+
+ADD
+use case#2: Add new GroupPage
+mutation{ 
+	addGroupPage(
+            name: "Group3",
+	    	about:{
+					description: "Group3Description",
+					privacy: "Group3Privacy",
+					visibility: "Group3Visibility",
+					history: "Group3History"
+					}){
+							name
+							about{
+							    description
+							    privacy
+							}
+						}
+					
+}
+
+UPDATE
+
+use case#3: update GroupPage
+mutation{ 
+	updateGroupPage(
+            groupPageId: 3
+            name: "eswarGroup3"
+	    	about:{
+					description: "eswar3Description",
+					privacy: "eswar3Privacy",
+					visibility: "eswar3Visibility",
+					history: "eswar3History"
+					}){
+							name
+							about{
+							    description
+							    privacy
+							}
+						}
+					
+}
+
+
+DELETE
+use case#4: delete deleteGroupPagePost
+
+mutation{ 
+	deleteGroupPagePost(
+            groupPageId: 3,
+           groupPagePostId: 3){
+							name
+							about{
+							    description
+							    privacy
+							}
+						}
+					
+}

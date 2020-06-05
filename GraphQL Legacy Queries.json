@@ -1,0 +1,150 @@
+http://localhost:2000/user - POST - LEGACY
+
+Query:
+
+use case#1: Client to get only user details such as name and id 
+query{ 
+allUsers{
+    id
+    name
+    }   
+}
+
+use case#2: Client to get user name, address and top 3 friends list 
+query{ 
+allUsers{
+    id
+    name
+    address{
+        city
+        country
+    }
+    friends(top: 3){
+        name
+    }
+    
+    }   
+}
+
+use case#3: Client to get user name, top 3 friends and top 2 posts of each friend
+query{ 
+allUsers{
+    id
+    name
+    friends(top: 3){
+        name
+    }posts(top: 2){
+        content
+    }
+    
+    }   
+}
+
+use case#4: Client to get user name, top 2 friends and top 2 posts of each friend and top 2 comments of each posts
+query{ 
+allUsers{
+    id
+    name
+    friends(top: 3){
+        name
+    }posts(top: 2){
+        content
+        comments(top: 2){
+            name
+            content
+        }
+    }
+    
+    }   
+}
+
+
+use case#5: Client to get user name, top 2 friends and top 2 posts of each friend and top 2 comments of each posts
+query{ 
+userById(id: 1){
+    id
+    name 
+    friends(top: 3){
+        name
+    }posts(top: 2){
+        content
+        comments(top: 2){
+            name
+            content
+        }
+    }
+    
+    }   
+}
+
+
+Mutations:
+
+ADD
+use case#6: Add new user and return name and address
+mutation{ 
+	addUser(
+            name: "user13",
+	    	address:{
+					city: "user13city",
+					province: "user13province",
+					country: "user13country"
+					}){
+							id
+							name
+							address{
+							    city
+							    country
+							}
+						}
+					
+}
+
+use case#7: user to add post then return top 15 posts
+mutation{ 
+	addPost(
+            userId: 1,
+	    	post:{
+				content:"user1post12"
+					}){
+							id
+							name
+							posts(top: 15){
+							    content
+							}
+						}
+					
+}
+
+UPDATE
+use case#8: user to update post then return top 5 posts
+mutation{ 
+	updatePost(
+            userId: 1,
+            postId: 1,
+	    	post:{
+				content:"eswar1post1"
+					}){
+							id
+							name
+							posts(top: 5){
+							    content
+							}
+						}
+					
+}
+
+DELETE
+use case#9: client to delete the user
+mutation{ 
+	deleteUser(userId: 11) 
+}
+use case#9: client to delete the user
+mutation{ 
+	deletePost(userId: 8, postId: 4) {
+	    name
+	    posts{
+	        content
+	    }
+	}
+}

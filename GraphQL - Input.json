@@ -1,0 +1,168 @@
+http://localhost:1000/social  - POST - HYBRID
+http://localhost:2000/user - POST - LEGACY
+http://localhost:3000/groups - POST - GREENFEILD
+
+Query to sample-rest-api db (graphql_restdb)   - http://localhost:2000/user - POST  - LEGACY
+=============================================
+for retriving : Query 
+
+query{ 
+allUsers{
+    id
+    name
+    }   
+}
+
+query{ 
+allUsers{
+    id
+    name
+    address{
+        id
+        city
+        country
+        }
+    friends{
+        id
+        name
+        }  
+    posts(top: 3){
+        id
+        content
+            comments(top: 2){
+                id,
+                name,
+                content
+            }
+        }
+    }
+	userById(id: 1) {
+	    id
+		name
+		posts(top: 3){
+		    id
+		    content  
+		   }
+	}
+        
+}
+
+
+
+calling two methods at the same timeiinside query:
+==================================================
+query{ 
+allGroupPages{
+     id
+    name
+   about{
+       id
+       description
+       privacy
+   }
+    posts(top: 3){
+        id
+        content
+    }
+    members(top: 2){
+        id
+        
+    }
+    } 
+groupPageById(id: 2){
+    id
+    name
+    about{
+       id
+       description
+       privacy
+   }
+    posts(top: 3){
+        id
+        content
+    }
+    members(top: 2){
+        id
+        
+    }
+}
+    
+}
+
+for creating : Mutation 
+ 
+mutation{ 
+	addUser(
+            name: "user11",
+	    	address:{
+					city: "user11city",
+					province: "user11province",
+					country: "user11country"
+					}){
+							id
+							name
+						}
+					
+}
+
+for deleteing: Mutation
+
+mutation{ 
+	deleteUser(userId: 11) 
+}
+
+
+Query to Hybrid-api db (graphql_db)    - http://localhost:3000/groups - POST  - GREENFEILD
+====================================
+query{ 
+allGroupPages{
+    id
+    name
+   about{
+       id
+       description
+       privacy
+   }
+    posts(top: 2){
+        id
+        content
+    }
+    members{
+        id
+        
+    }
+    }   
+}
+
+
+query{ 
+groupPageById(id: 1){
+    id
+    name
+    }
+}
+
+query{ 
+groupPageById(id: 2){
+     id
+    name
+   about{
+       id
+       description
+       privacy
+   }
+    posts(top: 3){
+        id
+        content
+    }
+    members(top: 2){
+        id
+        
+    }
+    } 
+}
+
+
+
+
+
