@@ -1,0 +1,5 @@
+﻿firstName,lastName,gmail,gender,dateOfJoin,dateOfBirth,phoneNumber,address__Present,address__Residence,department__name,department__description
+venkata,Subbareddy,abc@gmail.com,Male,5/27/2019,5/2/1991,1234567899,"Marathahalli,Banglore,india,5600037","Marathahalli,Banglore,india,5600037",Accounts,Account related info
+Ravindra,reddy,ravindra@gmail.com,Male,12/27/2019,7/2/1996,987845678,"Marathahalli,Banglore,india,5600037","Marathahalli,Banglore,india,5600037",HR,HRrelated info
+Vishnu,vardan reddy,vishnu@gmail.com,Male,1/27/2020,7/20/1996,6325789425,"Marathahalli,Banglore,india,5600037","Marathahalli,Banglore,india,5600037",IT,IT related info
+surendra,surendra setty,surendra@gmail.com,Male,1/27/2020,7/20/1996,8887788789,"Marathahalli,Banglore,india,5600037","Marathahalli,Banglore,india,5600037",IT,IT related info

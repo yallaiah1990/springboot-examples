@@ -1,0 +1,189 @@
+# Spring All Profiles for all environement
+spring:
+  profiles:
+    active: Local       #  emp_Local | emp_dev | emp_qa | emp_preprod | emp_prod
+---
+spring:
+  profiles: Local
+  
+  application:
+    name: employee-management
+  data:
+    mongodb:
+      host: mongodb-container
+      database: employee-management
+      port: 27017
+      password: abc123
+      username: myUserAdmin
+  jackson: 
+      serialization:
+        write-dates-as-timestamps: false
+  http:
+    multipart:
+      max-file-size: 
+      max-request-size: 
+  servlet:
+    multipart:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8083/eureka/
+server:
+  port: 8081
+security:
+  basic:
+    enabled: false
+auth: 
+  flag: false
+jwt: 
+  secret: sampleapp
+  
+---
+spring:
+  profiles: Dev
+  
+  application:
+    name: employee-management
+  data:
+    mongodb:
+      host: localhost
+      database: employee-management
+      port: 27017
+      password: abc123
+      username: myUserAdmin
+  jackson: 
+      serialization:
+        write-dates-as-timestamps: false
+  http:
+    multipart:
+      max-file-size: 
+      max-request-size: 
+  servlet:
+    multipart:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8083/eureka/
+server:
+  port: 8081
+security:
+  basic:
+    enabled: false
+
+auth: 
+  flag: false
+jwt: 
+  secret: sampleapp
+---
+spring:
+  profiles: qa
+  
+  application:
+    name: employee-management
+  data:
+    mongodb:
+      host: localhost
+      database: employee-management
+      port: 27017
+      password: abc123
+      username: myUserAdmin
+  jackson: 
+      serialization:
+        write-dates-as-timestamps: false
+  http:
+    multipart:
+      max-file-size: 
+      max-request-size: 
+  servlet:
+    multipart:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8083/eureka/
+server:
+  port: 8081
+security:
+  basic:
+    enabled: false
+
+auth: 
+  flag: false
+jwt: 
+  secret: sampleapp
+---
+spring:
+  profiles: preprod
+  
+  application:
+    name: employee-management
+  data:
+    mongodb:
+      host: localhost
+      database: employee-management
+      port: 27017
+      password: abc123
+      username: myUserAdmin
+  jackson: 
+      serialization:
+        write-dates-as-timestamps: false
+  http:
+    multipart:
+      max-file-size: 
+      max-request-size: 
+  servlet:
+    multipart:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8083/eureka/
+server:
+  port: 8081
+security:
+  basic:
+    enabled: false
+
+auth: 
+  flag: false
+jwt: 
+  secret: sampleapp
+---
+spring:
+  profiles: Prod
+  
+  application:
+    name: employee-management
+  data:
+    mongodb:
+      host: localhost
+      database: employee-management
+      port: 27017
+      password: abc123
+      username: myUserAdmin
+  jackson: 
+      serialization:
+        write-dates-as-timestamps: false
+  http:
+    multipart:
+      max-file-size: 
+      max-request-size: 
+  servlet:
+    multipart:
+      enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8083/eureka/
+server:
+  port: 8081
+security:
+  basic:
+    enabled: false
+
+auth: 
+  flag: false
+jwt: 
+  secret: sampleapp
