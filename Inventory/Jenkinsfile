@@ -1,0 +1,71 @@
+currentBuild.displayName = "inventory-service" + currentBuild.number
+pipeline {
+  
+  environment {
+    registry = "yallaiah/e-docker-repo"
+    registryCredential = 'dockerhub'
+	}
+  	parameters {
+        string(defaultValue: '1.0', description: 'releaseversion', name: 'ReleaseVersion')
+        booleanParam(defaultValue: false, description: 'docker image Creation', name: 'dockerimagecreate')
+        booleanParam(defaultValue: false, description: 'docker image push to repo', name: 'dockerimagepush')
+        //choice(name: 'dockeroption',choices: ['dockerimagecreate', 'dockerimagepush'],description: 'docker options')
+  	}
+  agent any
+  stages {
+    stage('Code Checkout') {
+      steps {
+        git(url: 'https://innersource.accenture.com/scm/order_system/inventory.git', branch: 'feature/Adding_Jenkins', changelog: true, credentialsId: '26ed5514-e0ed-496d-8139-98dd68293ad5')
+      }
+    }
+    stage('Build') {
+      steps {
+        bat 'mvn clean install -Dverbose=true -Dmaven.test.skip=true -Ddockerfile.skip=true -Dverbose=true'
+      }
+    }
+    stage('Junit Test') {
+      steps {
+        bat 'mvn test -Dverbose=true'
+      }
+    }
+    stage('Code Coverage') {
+      steps {     
+        jacoco buildOverBuild: true, changeBuildStatus: true, execPattern: '**/target/**.exec', inclusionPattern: '**/*.class'
+      }
+    }
+
+    stage('Sonar Analysis') {
+       steps {     
+          withSonarQubeEnv('SonarQube') {
+                    bat "mvn sonar:sonar"
+             }
+         }
+     }
+      /*stage("Quality Gate") {
+                  steps {
+                    timeout(time: 1, unit: 'HOURS') {
+                      waitForQualityGate abortPipeline: true
+                    }
+              }
+      }*/
+
+    
+	stage('Docker Image') {
+         when{
+           expression {params.dockerimagecreate == true}
+         }
+         steps {     
+              bat "mvn dockerfile:build"
+         }
+       }
+  	stage('Deploy Image') {
+          when{
+           expression {params.dockerimagepush == true}
+         }
+         steps {  
+             bat 'mvn dockerfile:push -s settings.xml -gs settings.xml'  
+			}
+        }
+
+  }
+}

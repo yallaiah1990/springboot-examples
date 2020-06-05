@@ -1,0 +1,48 @@
+type GroupPage {
+	id: ID!
+	name: String!
+	about: About
+	members(top: Int): [GroupPageMember]
+	posts(top: Int): [GroupPagePost]
+}
+type About {
+	id: ID!
+	description: String
+	privacy: String
+	visibility: String
+	history: String
+}
+type GroupPageMember{
+	id: ID!
+}
+input AboutInput {
+	description: String
+	privacy: String
+	visibility: String
+	history: String
+}
+type GroupPagePost {
+	id: ID!
+	content: String
+}
+input GroupPagePostInput {
+	content: String
+}
+type Query {
+	allGroupPages: [GroupPage]
+	groupPageById(id: ID): GroupPage
+}
+type Mutation {
+	addGroupPage(name: String!, about: AboutInput): GroupPage
+	updateGroupPage(groupPageId: ID!, name: String!, about: AboutInput): GroupPage
+	deleteGroupPage(groupPageId: ID!): String
+	addGroupPagePost(groupPageId: Int!, groupPagePost: GroupPagePostInput): GroupPagePost
+	updateGroupPagePost(groupPageId: Int!, groupPagePostId: ID!, groupPagePost: GroupPagePostInput): GroupPagePost
+	deleteGroupPagePost(groupPageId: Int!, groupPagePostId: ID!): GroupPage
+	addGroupPageMember(groupPageId: Int, userId: Int!): GroupPage
+	deleteGroupPageMember(groupPageId: Int!, groupPageMemberId: ID!): GroupPage
+}
+schema {
+	query: Query
+	mutation: Mutation
+}

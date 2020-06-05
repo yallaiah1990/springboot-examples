@@ -1,0 +1,104 @@
+type User {
+	id: ID!
+	name: String
+	address: Address
+	friends(top: Int): [Friend]
+	posts(top: Int): [Post]
+}
+type Address {
+	id: ID!
+	city: String
+	province: String
+	country: String
+}
+type Friend {
+	id: ID!
+	name: String
+}
+type Post {
+	id: ID!
+	content: String
+	comments(top: Int): [Comment]
+}
+type Comment {
+	id: ID!
+	name: String
+	content: String
+}
+type GroupPagePost {
+	id: ID!
+	content: String
+}
+type GroupPage {
+	id: ID!
+	name: String!
+	about: About
+	members(top: Int): [GroupPageMember]
+	posts(top: Int): [GroupPagePost]
+}
+type About {
+	id: ID!
+	description: String
+	privacy: String
+	visibility: String
+	history: String
+}
+type GroupPageMember{
+	id: ID!
+	user: User
+}
+input PostInput {
+	content: String
+}
+input CommentInput {
+	name: String
+	content: String
+}
+input FriendInput {
+	name: String
+}
+input AddressInput {
+	city: String
+	province: String
+	country: String
+}
+input GroupPagePostInput {
+	content: String
+}
+input AboutInput {
+	description: String
+	privacy: String
+	visibility: String
+	history: String
+}
+type Query {
+	allUsers: [User]
+	userById(id: ID!): User
+	
+	allGroupPages: [GroupPage]
+	groupPageById(id: ID): GroupPage
+}
+type Mutation {
+	addUser(name: String!, address: AddressInput!): User
+	deleteUser(userId: ID!): String
+	addPost(userId: Int!, post: PostInput!): User
+	updatePost(userId: Int!, postId: ID!, post: PostInput): User
+	deletePost(userId: Int!, postId: ID!): User
+	addComment(postId: Int!, comment: CommentInput!): Post
+	updateComment(postId: Int!, commentId: ID!, comment: CommentInput!): Post
+	deleteComment(postId: Int!, commentId: ID!): Post
+
+
+	addGroupPage(name: String!, about: AboutInput): GroupPage
+	updateGroupPage(groupPageId: ID!, name: String!, about: AboutInput): GroupPage
+	deleteGroupPage(groupPageId: ID!): String
+	addGroupPagePost(groupPageId: Int!, groupPagePost: GroupPagePostInput): GroupPagePost
+	updateGroupPagePost(groupPageId: Int!, groupPagePostId: ID!, groupPagePost: GroupPagePostInput): GroupPagePost
+	deleteGroupPagePost(groupPageId: Int!, groupPagePostId: ID!): GroupPage
+	addGroupPageMember(groupPageId: Int, userId: Int!): GroupPage
+	deleteGroupPageMember(groupPageId: Int!, groupPageMemberId: ID!): GroupPage
+}
+schema {
+	query: Query
+	mutation: Mutation
+}
